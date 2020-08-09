@@ -11,11 +11,13 @@ const db = require("./db");
 
 const { Ingredient } = require("./db/models");
 const { Category } = require("./db/models");
+const { Recipe } = require("./db/models");
 
 // Route
 const categoryRoutes = require("./routes/categories");
 const ingredientRoutes = require("./routes/ingredients");
 const recipeRoutes = require("./routes/recipes");
+
 const path = require("path");
 
 const app = express();
@@ -43,6 +45,17 @@ app.use((err, req, res, next) => {
 const run = async () => {
   try {
     await db.sync({ alter: true });
+
+    // const amidala = await Recipe[2];
+    // const queen = await Ingredient[5];
+
+    // await amidala.addIngredient(queen);
+    // const result = await Recipe.findOne({
+    //   where: { name: "cake" },
+    //   include: Ingredient,
+    // });
+    // console.log(result);
+
     // await db.sync({ force: true }); // empty db
     // await db.sync({ alter: true });
     // console.log("Connection to the database successful!");

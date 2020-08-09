@@ -3,23 +3,23 @@ const Ingredient = require("./Ingredient");
 const Recipe = require("./Recipe");
 
 Category.hasMany(Ingredient, {
-  as: "ingredient",
+  as: "ingredients",
   foreignKey: "categoryId",
   allowNull: false,
 });
 
 Ingredient.belongsTo(Category, { as: "category" });
 
-Ingredient.belongsToMany(Recipe, { through: "Recipe_Ingredient" });
-Recipe.belongsToMany(Ingredient, { through: "Recipe_Ingredient" });
-
-// Recipe.hasMany(Ingredient, {
-//   as: "ingredient",
-//   foreignKey: "recipeId",
-//   allowNull: false,
-// });
-
-// Ingredient.belongsTo(Recipe, { as: "recipe" });
+Ingredient.belongsToMany(Recipe, {
+  through: "Recipe_Ingredient",
+  as: "recipe",
+  foreignKey: "ingredientId",
+});
+Recipe.belongsToMany(Ingredient, {
+  through: "Recipe_Ingredient",
+  as: "ingredients",
+  foreignKey: "recipeId",
+});
 
 module.exports = {
   Category,

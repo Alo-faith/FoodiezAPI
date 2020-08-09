@@ -18,6 +18,9 @@ Recipe.init(
     instruction: {
       type: DataTypes.STRING,
     },
+    image: {
+      type: DataTypes.STRING,
+    },
   },
 
   {

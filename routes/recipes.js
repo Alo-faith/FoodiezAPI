@@ -7,7 +7,7 @@ const {
   recipeUpdate,
   recipeDelete,
   feachRecipe,
-  //   ingredientCreate,
+  addIngredient,
 } = require("../controllers/recipeController");
 
 // Middleware
@@ -28,6 +28,19 @@ router.param("recipeId", async (req, res, next, recipeId) => {
   }
 });
 
+router.param("ingredientId", async (req, res, next, ingredientId) => {
+  const ingredient = await feachIngredient(ingredientId, next);
+
+  if (ingredient) {
+    req.ingredient = ingredient;
+    next();
+  } else {
+    const err = new Error("ingredient not found");
+    err.status = 404;
+    next(err);
+  }
+});
+
 // List
 router.get("/", recipeList);
 
@@ -38,6 +51,6 @@ router.post("/", upload.single("image"), recipeCreate);
 router.delete("/:recipeId", recipeDelete);
 
 // Update
-// router.put("/:recipeId", upload.single("image"), recipeUpdate);
+router.put("/:recipeId", upload.single("image"), recipeUpdate);
 
 module.exports = router;
